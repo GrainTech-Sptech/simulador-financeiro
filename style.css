@@ -4,23 +4,25 @@ body {
   margin: auto;
   background-color: #f7f3ee;
   font-family:
-    SF PRO,
+    sans-serif,
     Helvetica,
-    sans-serif;
+    Arial;
 }
 
 .card {
-  width: fit-content;
+  width: 450px;
   border-radius: 25px;
   border: solid 2px #012423;
   margin: auto;
+  margin-bottom: 40px;
   background-color: #0d2f2e;
   color: #e9c4aa;
-  padding: 20px 34px;
+  padding: 30px 80px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .container-question {
   padding: 12px 12px;
 }
@@ -39,7 +41,7 @@ body {
 
 .subtitle {
   font-size: 23px;
-  margin: 10px;
+  margin: 35px;
   color: #012423;
 }
 
@@ -61,7 +63,7 @@ button {
 
 span {
   color: white;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .text-error {
@@ -71,6 +73,10 @@ span {
   text-align: left;
 }
 
+.text-result {
+  font-size: 15px;
+  text-align: left;
+}
 #ipt_meses {
   height: 24px !important;
 }
@@ -92,5 +98,5 @@ span {
 }
 
 .text-input {
-  text-align: left;
+  text-align: justify;
 }

@@ -10,16 +10,9 @@
   <body>
     <h1 class="title">
       Maximize a Rentabilidade da sua Safra com a
-      <span style="color: brown">Grain Tech</span>
+      <span style="color: #460000">Grain Tech</span>
     </h1>
     <h2 class="subtitle">Não seja refém do mercado na hora da colheita.</h2>
-    <p class="text">
-      Vender grãos por falta de espaço no silo no momento de alta oferta reduz o
-      seu poder de negociação e derruba a sua rentabilidade. Enquanto uma venda
-      forçada pode te dar um prejuízo de até R$ 25,00 por saca, o armazenamento
-      estratégico custa, no máximo, R$ 4,50. Retome o controle da sua safra e
-      venda quando o lucro for maior!
-    </p>
     <div class="card">
       <h2>Simulador de Custo de Armazenagem <br> e Perda por Venda Forçada</h2>
       <div>
@@ -160,15 +153,15 @@
 
         // If, else if e else utilizado para comparar o prejuizo com custo de armazenamento e logo em seguida exibir uma resposta ao usuário
         if (prejuizo > calculo_armazenamento) {
-          div_simulacao_custo_x_perda.innerHTML = `O deságio por venda forçada seria de ${formatador.format(prejuizo)}. 
-        <br>O custo total para armazenar por ${tempo_armazenado} meses será de ${formatador.format(calculo_armazenamento)}. 
-        <br>Estratégia Recomendada: Armazenar os grãos evitará a perda e garantirá uma retenção de ${formatador.format(margem)}.`;
+          div_simulacao_custo_x_perda.innerHTML = `<p class="text-result">O deságio por venda forçada seria de ${formatador.format(prejuizo)}. 
+        <br><br>O custo total para armazenar por ${tempo_armazenado} meses será de ${formatador.format(calculo_armazenamento)}. 
+        <br><br><b>Estratégia Recomendada:</b> <br>Armazenar os grãos evitará a perda e garantirá uma retenção de ${formatador.format(margem)}.</p>`;
         } else if (prejuizo == calculo_armazenamento) {
-          div_simulacao_custo_x_perda.innerHTML = `<br>Ponto de Equilíbrio atingido. 
-        <br>A decisão deve considerar outras variáveis de mercado.`;
+          div_simulacao_custo_x_perda.innerHTML = `<br><p class="text-result">Ponto de Equilíbrio atingido. 
+        <br><br>A decisão deve considerar outras variáveis de mercado.</p>`;
         } else {
-          div_simulacao_custo_x_perda.innerHTML = `O custo de armazenagem atual é maior que a perda na venda imediata. 
-        <br>Atenção: Armazenar por ${tempo_armazenado} meses trará uma despesa extra e injustificada de ${formatador.format(margem * -1)}.`;
+          div_simulacao_custo_x_perda.innerHTML = `<p class="text-result">O custo de armazenagem atual é maior que a perda na venda imediata. 
+        <br><br><b>Atenção:</b> Armazenar por ${tempo_armazenado} meses trará uma despesa extra e injustificada de ${formatador.format(margem * -1)}.</p>`;
         }
       }
     }
@@ -220,7 +213,7 @@
             valor_silo_completo = tipo_silo * preco_soja;
           }
         }
-        div_simulacao_valor_safra.innerHTML = `O valor da sua safra atingindo a totalidade do silo é de ${formatador.format(valor_silo_completo)}`;
+        div_simulacao_valor_safra.innerHTML = `<p class="text-result">O valor da sua safra atingindo a totalidade do silo é de ${formatador.format(valor_silo_completo)}</p>`;
       }
     }
   </script>
