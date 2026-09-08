@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulador Green Tech</title>
+    <title>Simulador Grain Tech</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1 class="title">Maximize a Rentabilidade da sua Safra com a <span style="color: brown;">Grain Tech</span></h1>
+    <h1 class="title">
+      Maximize a Rentabilidade da sua Safra com a
+      <span style="color: brown">Grain Tech</span>
+    </h1>
     <h2 class="subtitle">Não seja refém do mercado na hora da colheita.</h2>
     <p class="text">
       Vender grãos por falta de espaço no silo no momento de alta oferta reduz o
@@ -18,35 +21,44 @@
       venda quando o lucro for maior!
     </p>
     <div class="card">
-      <h2>Simulador de Custo de Armazenagem e Perda por Venda Forçada</h2>
+      <h2>Simulador de Custo de Armazenagem <br> e Perda por Venda Forçada</h2>
       <div>
-        <!-- Select para selecionar o tipo de grão e para o porte do silo -->
-        <p>Selecione um grão:</p>
-        <select name="" id="sel_ativo">
-          <option value="0">Selecionar</option>
-          <option value="1">Arroz</option>
-          <option value="2">Milho</option>
-          <option value="3">Soja</option>
-        </select>
-        <div id="msg_tipo_grao"></div>
-        <!-- Simulador do custo de Armazenagem, e uma comparação de perda por venda forçada. -->
-        <p>Selecione um tipo de silo:</p>
-        <select name="" id="sel_silo">
-          <option value="0">Selecionar</option>
-          <option value="1">Pequeno (30 a 500 toneladas)</option>
-          <option value="2">Médio (1.000 a 3.000 toneladas)</option>
-          <option value="3">Grande (6.000 a 15.000)</option>
-        </select>
-        <div id="msg_tipo_silo"></div>
+        <div class="container-question">
+          <!-- Select para selecionar o tipo de grão e para o porte do silo -->
+          <p class="text-input">Selecione um grão:</p>
+          <select name="" id="sel_ativo">
+            <option value="0">Selecionar</option>
+            <option value="1">Arroz</option>
+            <option value="2">Milho</option>
+            <option value="3">Soja</option>
+          </select>
+          <div id="msg_tipo_grao"></div>
+        </div>
 
-        <!-- Base de calculo escolhida de acordo com a pesquisa. 
-            Armazenagem = 2,00 a 4,50 (2 + 4,50 = 6,50 / 2 = 3,25). Perda = 15,00 a 25,00 (15 + 25 = 40 / 2 = 20) -->
-        <span>(Base de cálculo armazenagem: R$ 3,25 / saca)</span>
-        <span> (Base de cálculo perda: R$ 20,00 / saca)</span> <br /><br />
-        <!-- Usuário insere quanto tempo ele deseja armazenar os grãos no silo -->
-        <p>Tempo de armazenamento (meses):</p>
-        <input type="text" id="ipt_meses" />
-        <div id="msg_meses"></div>
+        <div class="container-question">
+          <!-- Simulador do custo de Armazenagem, e uma comparação de perda por venda forçada. -->
+          <p class="text-input">Selecione um tipo de silo:</p>
+          <select name="" id="sel_silo">
+            <option value="0">Selecionar</option>
+            <option value="1">Pequeno (30 a 500 toneladas)</option>
+            <option value="2">Médio (1.000 a 3.000 toneladas)</option>
+            <option value="3">Grande (6.000 a 15.000)</option>
+          </select>
+          <div id="msg_tipo_silo"></div>
+        </div>
+
+        <div class="container-question base-calculo">
+          <!-- Base de calculo escolhida de acordo com a pesquisa. 
+          Armazenagem = 2,00 a 4,50 (2 + 4,50 = 6,50 / 2 = 3,25). Perda = 15,00 a 25,00 (15 + 25 = 40 / 2 = 20) -->
+          <span>(Base de cálculo armazenagem: R$ 3,25 / saca)</span>
+          <span> (Base de cálculo perda: R$ 20,00 / saca)</span> <br /><br />
+        </div>
+        <div class="container-question">
+          <!-- Usuário insere quanto tempo ele deseja armazenar os grãos no silo -->
+          <p class="text-input">Tempo de armazenamento (meses):</p>
+          <input type="text" id="ipt_meses" />
+          <div id="msg_meses"></div>
+        </div>
         <!-- Botão para acionar o script e simular os custos -->
         <button onclick="simularcustos()">Simular Custos</button>
         <br />
@@ -94,9 +106,9 @@
 
     function simularcustos() {
       // Limpa as mensagens de erros
-      msg_meses = "";
-      msg_tipo_grao = "";
-      msg_tipo_silo = "";
+      msg_meses.innerHTML = "";
+      msg_tipo_grao.innerHTML = "";
+      msg_tipo_silo.innerHTML = "";
 
       // Pega os valores digitados pelo usuário
       let meses = Number(ipt_meses.value);
@@ -160,6 +172,7 @@
         }
       }
     }
+
     function simularsafra() {
       let silo = silo_selecionado;
       let grao = grao_selecionado;
