@@ -3,10 +3,7 @@ body {
   width: fit-content;
   margin: auto;
   background-color: #f7f3ee;
-  font-family:
-    sans-serif,
-    Helvetica,
-    Arial;
+  font-family: sans-serif, Helvetica, Arial;
 }
 
 .card {
@@ -25,6 +22,16 @@ body {
 
 .container-question {
   padding: 12px 12px;
+}
+
+.container-simulacao {
+  background-color: #f7f3ee;
+  border-radius: 8px;
+  color: #012423;
+  padding: 18px 24px;
+  margin: 12px 0px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .text {
@@ -77,6 +84,19 @@ span {
   font-size: 15px;
   text-align: left;
 }
+
+.green {
+  color: #0d2f2e;
+}
+
+.yellow {
+  color: #7a7b3a;
+}
+
+.red {
+  color: #882006;
+}
+
 #ipt_meses {
   height: 24px !important;
 }

@@ -14,16 +14,19 @@
     </h1>
     <h2 class="subtitle">Não seja refém do mercado na hora da colheita.</h2>
     <div class="card">
-      <h2>Simulador de Custo de Armazenagem <br> e Perda por Venda Forçada</h2>
+      <h2>
+        Simulador de Custo de Armazenagem <br />
+        e Perda por Venda Forçada
+      </h2>
       <div>
         <div class="container-question">
           <!-- Select para selecionar o tipo de grão e para o porte do silo -->
           <p class="text-input">Selecione um grão:</p>
           <select name="" id="sel_ativo">
             <option value="0">Selecionar</option>
-            <option value="1">Arroz</option>
-            <option value="2">Milho</option>
-            <option value="3">Soja</option>
+            <option value="1">Arroz - R$79.07</option>
+            <option value="2">Milho - R$70.93</option>
+            <option value="3">Soja - R$160.14</option>
           </select>
           <div id="msg_tipo_grao"></div>
         </div>
@@ -35,7 +38,7 @@
             <option value="0">Selecionar</option>
             <option value="1">Pequeno (30 a 500 toneladas)</option>
             <option value="2">Médio (1.000 a 3.000 toneladas)</option>
-            <option value="3">Grande (6.000 a 15.000)</option>
+            <option value="3">Grande (6.000 a 15.000 toneladas)</option>
           </select>
           <div id="msg_tipo_silo"></div>
         </div>
@@ -56,12 +59,20 @@
         <button onclick="simularcustos()">Simular Custos</button>
         <br />
         <!-- Container criado para exibir os calculos -->
-        <div id="div_simulacao_custo_x_perda"></div>
+        <div
+          class="container-simulacao"
+          style="display: none"
+          id="div_simulacao_custo_x_perda"
+        ></div>
       </div>
       <div>
         <h2>Agora Simule o Valor de sua Safra</h2>
         <button onclick="simularsafra()">Simular Valor</button>
-        <div id="div_simulacao_valor_safra"></div>
+        <div
+          class="container-simulacao"
+          style="display: none"
+          id="div_simulacao_valor_safra"
+        ></div>
       </div>
     </div>
   </body>
@@ -151,31 +162,45 @@
         // Calcula a margem entre prejuízo e custo de armazenamento
         let margem = prejuizo - calculo_armazenamento;
 
-        // If, else if e else utilizado para comparar o prejuizo com custo de armazenamento e logo em seguida exibir uma resposta ao usuário
-        if (prejuizo > calculo_armazenamento) {
-          div_simulacao_custo_x_perda.innerHTML = `<p class="text-result">O deságio por venda forçada seria de ${formatador.format(prejuizo)}. 
-        <br><br>O custo total para armazenar por ${tempo_armazenado} meses será de ${formatador.format(calculo_armazenamento)}. 
-        <br><br><b>Estratégia Recomendada:</b> <br>Armazenar os grãos evitará a perda e garantirá uma retenção de ${formatador.format(margem)}.</p>`;
-        } else if (prejuizo == calculo_armazenamento) {
-          div_simulacao_custo_x_perda.innerHTML = `<br><p class="text-result">Ponto de Equilíbrio atingido. 
-        <br><br>A decisão deve considerar outras variáveis de mercado.</p>`;
+        div_simulacao_custo_x_perda.style.display = "flex";
+
+        // fazer um if para verificar os meses para que não seja maior que 12 caso passe pedir ao usuario para inserir um novo valor
+        if (meses <= 12) {
+          // If, else if e else utilizado para comparar o prejuizo com custo de armazenamento e logo em seguida exibir uma resposta ao usuário
+          if (prejuizo > calculo_armazenamento) {
+            div_simulacao_custo_x_perda.innerHTML = `
+              <p class="red text-result">O prejuízo por venda forçada seria de <b>${formatador.format(prejuizo)}</b>.</p>
+              <p class="red text-result">Enquanto o custo total para armazenar por ${tempo_armazenado} meses será de <b>${formatador.format(calculo_armazenamento)}</b>.</p>
+              <p class="green text-result"><b>Estratégia Recomendada:</b> <br>Armazenar os grãos evitará a perda e garantirá uma retenção de <b>${formatador.format(margem)}</b>.</p>`;
+          } else if (prejuizo == calculo_armazenamento) {
+            div_simulacao_custo_x_perda.innerHTML = `
+              <p class="yellow text-result"><b>Ponto de Equilíbrio atingido.</b></p>
+              <p class="yellow text-result">A decisão deve considerar outras variáveis de mercado.</p>`;
+          } else {
+            div_simulacao_custo_x_perda.innerHTML = `
+              <p class="green text-result">O custo de armazenagem atual, é maior que a perda na venda imediata!</p>
+              <p class="red text-result"><b>Atenção:</b> Armazenar por ${tempo_armazenado} meses trará uma despesa extra e injustificada de <b>${formatador.format(margem * -1)}</b>.</p>`;
+          }
         } else {
-          div_simulacao_custo_x_perda.innerHTML = `<p class="text-result">O custo de armazenagem atual é maior que a perda na venda imediata. 
-        <br><br><b>Atenção:</b> Armazenar por ${tempo_armazenado} meses trará uma despesa extra e injustificada de ${formatador.format(margem * -1)}.</p>`;
+          div_simulacao_custo_x_perda.innerHTML = `
+            <p class="red text-result"><b>Atenção:</b> seu grão pode estar avariado devido a quantidade de meses armazenados.</p>`;
         }
       }
     }
 
     function simularsafra() {
+      msg_tipo_grao.innerHTML = "";
+      msg_tipo_silo.innerHTML = "";
+
       let silo = silo_selecionado;
       let grao = grao_selecionado;
 
       // If que valida se o grão foi selecionado
       if (grao == 0) {
-        alert("Selecione um grão para prosseguirmos a simulação");
+        msg_tipo_grao.innerHTML = `<p class="text-error">Selecione um grão para prosseguirmos a simulação</p>`;
       } // Senão se o silo foi selecionado
       else if (silo == 0) {
-        alert("Selecione um silo para prosseguirmos a simulação");
+        msg_tipo_silo.innerHTML = `<p class="text-error">Selecione um silo para prosseguirmos a simulação</p>`;
       } // Senão executa toda a lógica do botão
       else {
         if (grao == 1) {
@@ -202,18 +227,22 @@
             valor_silo_completo = tipo_silo * preco_milho;
           }
         } else {
-          if (silo == 1) {
-            tipo_silo = silo_pequeno;
-            valor_silo_completo = tipo_silo * preco_soja;
-          } else if (silo == 2) {
-            tipo_silo = silo_medio;
-            valor_silo_completo = tipo_silo * preco_soja;
-          } else {
-            tipo_silo = silo_grande;
-            valor_silo_completo = tipo_silo * preco_soja;
+          // validar aqui se passou de 12 meses
+          if (meses <= 12) {
+            if (silo == 1) {
+              tipo_silo = silo_pequeno;
+              valor_silo_completo = tipo_silo * preco_soja;
+            } else if (silo == 2) {
+              tipo_silo = silo_medio;
+              valor_silo_completo = tipo_silo * preco_soja;
+            } else {
+              tipo_silo = silo_grande;
+              valor_silo_completo = tipo_silo * preco_soja;
+            }
           }
+          div_simulacao_valor_safra.style.display = "flex";
+          div_simulacao_valor_safra.innerHTML = `<p class="green text-result">O valor da sua safra atingindo a totalidade do silo é de <b>${formatador.format(valor_silo_completo)}</b></p>`;
         }
-        div_simulacao_valor_safra.innerHTML = `<p class="text-result">O valor da sua safra atingindo a totalidade do silo é de ${formatador.format(valor_silo_completo)}</p>`;
       }
     }
   </script>
