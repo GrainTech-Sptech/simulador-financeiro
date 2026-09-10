@@ -192,8 +192,10 @@
       msg_tipo_grao.innerHTML = "";
       msg_tipo_silo.innerHTML = "";
 
-      let silo = silo_selecionado;
-      let grao = grao_selecionado;
+      // Lê os valores atuais direto dos inputs para não depender do clique no primeiro botão
+      let silo = Number(sel_silo.value);
+      let grao = Number(sel_ativo.value);
+      let meses = Number(ipt_meses.value);
 
       // If que valida se o grão foi selecionado
       if (grao == 0) {
@@ -240,8 +242,15 @@
               valor_silo_completo = tipo_silo * preco_soja;
             }
           }
-          div_simulacao_valor_safra.style.display = "flex";
-          div_simulacao_valor_safra.innerHTML = `<p class="green text-result">O valor da sua safra atingindo a totalidade do silo é de <b>${formatador.format(valor_silo_completo)}</b></p>`;
+        }
+
+        div_simulacao_valor_safra.style.display = "flex";
+        
+        // Verifica a restrição de meses para a soja
+        if (grao == 3 && meses > 12) {
+           div_simulacao_valor_safra.innerHTML = `<p class="red text-result"><b>Atenção:</b> seu grão pode estar avariado devido a quantidade de meses armazenados (máximo 12 meses para soja).</p>`;
+        } else {
+           div_simulacao_valor_safra.innerHTML = `<p class="green text-result">O valor da sua safra atingindo a totalidade do silo é de <b>${formatador.format(valor_silo_completo)}</b></p>`;
         }
       }
     }
